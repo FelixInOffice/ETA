@@ -32,7 +32,7 @@ function calDistance(selfLat, selfLong) {
         .then(data => {
             stopArray = [];
             data.data.map((item) => {
-                if (getDistanceFromLatLonInKm(item.lat, item.long, selfLat, selfLong) < 10.5) {
+                if (getDistanceFromLatLonInKm(item.lat, item.long, selfLat, selfLong) < 0.5) {
                     stopArray.push(
                         {
                             nameInTc: item.name_tc,
