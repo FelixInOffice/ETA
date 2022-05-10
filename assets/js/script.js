@@ -49,9 +49,16 @@ function calDistance(selfLat, selfLong) {
             });
         });
 
-    JSON.parse(sessionStorage.getItem("stopArray")).map((stopItem) => {
-        etaByStop(stopItem);
-    })
+
+    let loadData = setInterval(() => {
+        let stopArraySessionStorage = JSON.parse(sessionStorage.getItem("stopArray"));
+        if (stopArraySessionStorage != null) {
+            stopArraySessionStorage.map((stopItem) => {
+                etaByStop(stopItem);
+            });
+            clearInterval(loadData);
+        }
+    }, 100);
 }
 
 function etaByStop(stopItem) {
