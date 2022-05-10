@@ -79,10 +79,10 @@ function etaByStop(stopItem) {
                 if (eta) {
                     // nearETA += `${route} 往 ${dest_tc} 距離${stopItem.stopDistance}米<br />${stopItem.nameInTc}<br />${etaInMins < 0 ? "架車可能已經走咗啦，等下一班啦" : `將會係喺 ${etaInHumanLook} 有車<br />即仲有 ${etaInMins} 分鐘有車`}<br /><hr>`;
                     nearETA += `<div style="display: flex; align-items: center;">
-                                    <div style="width: 15%; text-align: center; font-size: 20px; font-weight: bold;">
+                                    <div style="width: 20%; text-align: center; font-size: 20px; font-weight: bold;">
                                         ${route}
                                     </div>
-                                    <div style="width: 65%">
+                                    <div style="width: 60%">
                                         <div>
                                             往 <span style="font-size: 20px; font-weight: bold;">${dest_tc}</span>
                                         </div>
