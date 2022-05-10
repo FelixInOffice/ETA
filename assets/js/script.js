@@ -9,7 +9,7 @@ let nearETA = "";
 
 function getLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(showPosition, showError, options);
+        navigator.geolocation.getCurrentPosition(showPosition, showError, options);
     } else {
         myLocationDiv.innerHTML = "Geolocation is not supported by this browser.";
     }
@@ -32,7 +32,7 @@ function calDistance(selfLat, selfLong) {
         .then(data => {
             stopArray = [];
             data.data.map((item) => {
-                if (getDistanceFromLatLonInKm(item.lat, item.long, selfLat, selfLong) < 0.5) {
+                if (getDistanceFromLatLonInKm(item.lat, item.long, selfLat, selfLong) < 10.5) {
                     stopArray.push(
                         {
                             nameInTc: item.name_tc,
@@ -76,12 +76,13 @@ function etaByStop(stopItem) {
             let getItemTest = JSON.parse(sessionStorage.getItem(`${stopItem.stopID}`));
             Object.keys(getItemTest).map(key => {
                 let eta = getItemTest[key][0].eta;
+                let etaInHumanLook = moment(getItemTest[key][0].eta).format("HH:mm");
                 let etaInMins = moment.duration(moment(getItemTest[key][0].eta).diff(moment())).minutes();
                 let route = getItemTest[key][0].route;
                 let dest_tc = getItemTest[key][0].dest_tc;
 
                 if (eta) {
-                    nearETA += `${route} 往 ${dest_tc}<br />${stopItem.nameInTc}<br />${eta} 仲有 ${etaInMins} 分鐘<br /><br />`;
+                    nearETA += `${route} 往 ${dest_tc} 距離${stopItem.stopDistance}米<br />${stopItem.nameInTc}<br />${etaInMins < 0 ? "架車可能已經走咗啦" : `將會係喺 ${etaInHumanLook} 有車<br />即仲有 ${etaInMins} 分鐘有車`}<br /><hr>`;
                 }
             });
 
