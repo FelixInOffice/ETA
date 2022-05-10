@@ -26,7 +26,6 @@ function showPosition(position) {
 let stopArray = [];
 
 function calDistance(selfLat, selfLong) {
-    // stopArray = [];
     fetch('https://data.etabus.gov.hk/v1/transport/kmb/stop')
         .then(response => response.json())
         .then(data => {
@@ -42,18 +41,15 @@ function calDistance(selfLat, selfLong) {
                             stopDistance: (getDistanceFromLatLonInKm(item.lat, item.long, selfLat, selfLong) * 1000).toFixed(1)
                         }
                     );
-                    // etaByStop(item.stop, item.stop + " " + item.name_tc + " " + (getDistanceFromLatLonInKm(item.lat, item.long, selfLat, selfLong) * 1000).toFixed(1) + "<br/>");
                     stopArray.sort((a, b) => {
                         return a.stopDistance - b.stopDistance;
                     });
                 };
+                sessionStorage.setItem("stopArray", JSON.stringify(stopArray));
             });
-
-            // console.log(data.data);
         });
-    // console.log(stopArray);
 
-    stopArray.map((stopItem) => {
+    JSON.parse(sessionStorage.getItem("stopArray")).map((stopItem) => {
         etaByStop(stopItem);
     })
 }
@@ -72,7 +68,6 @@ function etaByStop(stopItem) {
 
             sessionStorage.setItem(`${stopItem.stopID}`, JSON.stringify(result));
 
-            // console.log(stopItem.nameInTc, result);
             let getItemTest = JSON.parse(sessionStorage.getItem(`${stopItem.stopID}`));
             Object.keys(getItemTest).map(key => {
                 let eta = getItemTest[key][0].eta;
@@ -82,22 +77,23 @@ function etaByStop(stopItem) {
                 let dest_tc = getItemTest[key][0].dest_tc;
 
                 if (eta) {
-                    nearETA += `${route} 往 ${dest_tc} 距離${stopItem.stopDistance}米<br />${stopItem.nameInTc}<br />${etaInMins < 0 ? "架車可能已經走咗啦" : `將會係喺 ${etaInHumanLook} 有車<br />即仲有 ${etaInMins} 分鐘有車`}<br /><hr>`;
-                }
-            });
-
-            data.data.map((item) => {
-                let etaInMins = moment.duration(moment(item.eta).diff(moment())).minutes()
-                if (item.eta) {
-                    // console.log("This is data.data", data.data.filter(item => item.route == "15A"))
-                    // console.log(item);
-                    // realETAbyBusRoute(item.dir, item.seq, item.route, item.service_type, item.dest_tc, stopItem.nameInTc, stopItem.stopDistance, stopItem.stopID);
-                    // y.innerHTML += `${item.seq} ${item.service_type} ${item.route} ${item.dest_tc} ${stopItem.nameInTc} ${stopItem.stopDistance}米<br /> ${item.eta} 仲有 ${etaInMins} 分鐘<br />${stopItem.stopID}<br /><br />`;
-                    // nearETA += `${result[item.route][0].eta}<br />${item.seq} ${item.service_type} ${item.route} ${item.dest_tc} ${stopItem.nameInTc} ${stopItem.stopDistance}米<br /> ${item.eta} 仲有 ${etaInMins} 分鐘<br />${stopItem.stopID}<br /><br />`;
+                    nearETA += `${route} 往 ${dest_tc} 距離${stopItem.stopDistance}米<br />${stopItem.nameInTc}<br />${etaInMins < 0 ? "架車可能已經走咗啦，等下一班啦" : `將會係喺 ${etaInHumanLook} 有車<br />即仲有 ${etaInMins} 分鐘有車`}<br /><hr>`;
                 }
             });
 
             y.innerHTML = nearETA;
+
+            // data.data.map((item) => {
+            //     let etaInMins = moment.duration(moment(item.eta).diff(moment())).minutes()
+            //     if (item.eta) {
+            //         console.log("This is data.data", data.data.filter(item => item.route == "15A"))
+            //         console.log(item);
+            //         realETAbyBusRoute(item.dir, item.seq, item.route, item.service_type, item.dest_tc, stopItem.nameInTc, stopItem.stopDistance, stopItem.stopID);
+            //         y.innerHTML += `${item.seq} ${item.service_type} ${item.route} ${item.dest_tc} ${stopItem.nameInTc} ${stopItem.stopDistance}米<br /> ${item.eta} 仲有 ${etaInMins} 分鐘<br />${stopItem.stopID}<br /><br />`;
+            //         nearETA += `${result[item.route][0].eta}<br />${item.seq} ${item.service_type} ${item.route} ${item.dest_tc} ${stopItem.nameInTc} ${stopItem.stopDistance}米<br /> ${item.eta} 仲有 ${etaInMins} 分鐘<br />${stopItem.stopID}<br /><br />`;
+            //     }
+            // });
+
             // findBusRouteByStopId(stopItem.stopID);
         });
 }
