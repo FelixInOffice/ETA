@@ -7,13 +7,13 @@
 #ETA_dataBox {
     /* margin-bottom: 70px; */
     height: 90vh;
-    overflow: scroll;
+    overflow-y: scroll;
     padding: 20px 0px;
 }
 
 #ETA_searchBox {
     height: 90vh;
-    overflow: scroll;
+    overflow-y: scroll;
     padding: 20px 0px;
     display: none;
 }
