@@ -16,7 +16,32 @@
     <!-- <p id="myLocation"></p> -->
     <div class="ETA_container">
         <div id="ETA_dataBox"></div>
-        <div id="ETA_searchBox">敬請期待</div>
+        <div id="ETA_searchBox">
+            <div class="searchRouteDiv">
+                <div class="searchResult">
+                    <div id="typedRoute"></div>
+                </div>
+                <div class="searchKeypadDiv">
+                    <div class="searchKeypadNumber" id="searchKeypadNumber">
+                        <button data-key="1" onclick="typedRoute('1')">1</button>
+                        <button data-key="2" onclick="typedRoute('2')">2</button>
+                        <button data-key="3" onclick="typedRoute('3')">3</button>
+                        <button data-key="4" onclick="typedRoute('4')">4</button>
+                        <button data-key="5" onclick="typedRoute('5')">5</button>
+                        <button data-key="6" onclick="typedRoute('6')">6</button>
+                        <button data-key="7" onclick="typedRoute('7')">7</button>
+                        <button data-key="8" onclick="typedRoute('8')">8</button>
+                        <button data-key="9" onclick="typedRoute('9')">9</button>
+                        <button data-key="C" onclick="typedRoute('C')">C</button>
+                        <button data-key="0" onclick="typedRoute('0')">0</button>
+                        <button data-key="B" onclick="typedRoute('B')">Back</button>
+                    </div>
+                    <div class="searchKeypadAlphabet">
+                        s
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="bottomNav">
             <div id="bottomNav_HomePage">

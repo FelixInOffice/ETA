@@ -189,6 +189,7 @@ function deg2rad(deg) {
     return deg * (Math.PI / 180)
 }
 
+///////////////////////////////////////////////////////////////////////
 let homeButton = document.getElementById("bottomNav_HomePage");
 let searchButton = document.getElementById("bottomNav_SearchRoute");
 
@@ -204,3 +205,39 @@ homeButton.addEventListener("click", () => {
     ETA_searchBox.style.display = "none";
     ETA_dataBox.style.display = "unset";
 })
+///////////////////////////////////////////////////////////////////////
+
+function getAllBusRoute() {
+    fetch(`https://data.etabus.gov.hk/v1/transport/kmb/route/`)
+        .then(response => response.json())
+        .then(data => {
+            data.data.map((item) => {
+                // console.log(item.route, item.bound, item.service_type);
+                console.log(item.route.slice(1, 2));
+            });
+        });
+} getAllBusRoute();
+
+let typeRoute = document.getElementById("typedRoute");
+
+document.querySelector('[data-key="0"]').disabled = true;
+document.querySelector('[data-key="C"]').disabled = true;
+document.querySelector('[data-key="B"]').disabled = true;
+
+function typedRoute(number) {
+    if (number == "B") {
+        typeRoute.innerHTML = typeRoute.innerHTML.slice(0, -1);
+    } else if (number == "C") {
+        typeRoute.innerHTML = "";
+    } else {
+        typeRoute.innerHTML += number;
+    }
+
+    if (typeRoute.innerHTML != "") {
+        document.querySelector('[data-key="B"]').disabled = false;
+        document.querySelector('[data-key="C"]').disabled = false;
+    } else {
+        document.querySelector('[data-key="B"]').disabled = true;
+        document.querySelector('[data-key="C"]').disabled = true;
+    }
+}
