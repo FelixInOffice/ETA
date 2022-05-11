@@ -52,6 +52,27 @@
     font-weight: bold;
 }
 
+.showRouteThatTyped {
+    display: flex;
+    height: 30px;
+    align-items: flex-end;
+    position: fixed;
+    background-color: #FFFFFF;
+    align-self: center;
+    width: 100%;
+    justify-content: center;
+}
+
+#typedRoute {
+    width: 60px;
+    height: 30px;
+    padding: 0px 10px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    border-bottom: 1px solid black;
+}
+
 .searchRouteDiv {
     display: flex;
     flex-direction: column;
@@ -62,6 +83,12 @@
     height: 45vh;
     padding: 0px 10px;
     overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+}
+
+.showTheSearchResult {
+    margin-top: 30px;
 }
 
 .searchKeypadDiv {
