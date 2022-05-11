@@ -147,3 +147,7 @@
     display: flex;
     align-items: center;
 }
+
+button {
+    touch-action: manipulation;
+}
