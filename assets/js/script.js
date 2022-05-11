@@ -1,5 +1,5 @@
 var myLocationDiv = document.getElementById("myLocation")
-var y = document.getElementById("demo2");
+var y = document.getElementById("ETA_dataBox");
 
 let options = {
     enableHighAccuracy: true
@@ -17,8 +17,8 @@ function getLocation() {
 
 function showPosition(position) {
     nearETA = "";
-    myLocationDiv.innerHTML = "Latitude: " + position.coords.latitude +
-        "<br>Longitude: " + position.coords.longitude;
+    // myLocationDiv.innerHTML = "Latitude: " + position.coords.latitude +
+    //     "<br>Longitude: " + position.coords.longitude;
 
     calDistance(position.coords.latitude, position.coords.longitude);
 }
@@ -52,6 +52,13 @@ function calDistance(selfLat, selfLong) {
 
     let loadData = setInterval(() => {
         let stopArraySessionStorage = JSON.parse(sessionStorage.getItem("stopArray"));
+        if (JSON.parse(sessionStorage.getItem("stopArray")).length == 0) {
+            y.innerHTML = `
+                        <div class="noBusNear">
+                            附近冇巴士站呀
+                        </div>
+            `;
+        }
         if (stopArraySessionStorage != null) {
             stopArraySessionStorage.map((stopItem) => {
                 etaByStop(stopItem);
@@ -85,13 +92,13 @@ function etaByStop(stopItem) {
 
                 if (eta) {
                     // nearETA += `${route} 往 ${dest_tc} 距離${stopItem.stopDistance}米<br />${stopItem.nameInTc}<br />${etaInMins < 0 ? "架車可能已經走咗啦，等下一班啦" : `將會係喺 ${etaInHumanLook} 有車<br />即仲有 ${etaInMins} 分鐘有車`}<br /><hr>`;
-                    nearETA += `<div style="display: flex; align-items: center;">
-                                    <div style="width: 20%; text-align: center; font-size: 20px; font-weight: bold;">
+                    nearETA += `<div class="etaData">
+                                    <div class="etaRoute">
                                         ${route}
                                     </div>
-                                    <div style="width: 60%">
+                                    <div class="etaStopInfo">
                                         <div>
-                                            往 <span style="font-size: 20px; font-weight: bold;">${dest_tc}</span>
+                                            往 <span class="etaDest">${dest_tc}</span>
                                         </div>
                                         <div>
                                             ${stopItem.nameInTc}
@@ -100,7 +107,7 @@ function etaByStop(stopItem) {
                                             距離 ${stopItem.stopDistance} 米
                                         </div>
                                     </div>
-                                    <div style="width: 20%; text-align: center;">
+                                    <div class="etaTime">
                                         ${etaInMins < 0 ? "架車可能已經走咗啦" : `${etaInHumanLook}<br />${etaInMins} 分鐘`}
                                     </div>
                                 </div>
@@ -181,3 +188,19 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
 function deg2rad(deg) {
     return deg * (Math.PI / 180)
 }
+
+let homeButton = document.getElementById("bottomNav_HomePage");
+let searchButton = document.getElementById("bottomNav_SearchRoute");
+
+let ETA_dataBox = document.getElementById("ETA_dataBox");
+let ETA_searchBox = document.getElementById("ETA_searchBox");
+
+searchButton.addEventListener("click", () => {
+    ETA_dataBox.style.display = "none";
+    ETA_searchBox.style.display = "unset";
+})
+
+homeButton.addEventListener("click", () => {
+    ETA_searchBox.style.display = "none";
+    ETA_dataBox.style.display = "unset";
+})
