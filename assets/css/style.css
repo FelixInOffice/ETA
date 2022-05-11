@@ -148,6 +148,7 @@
     align-items: center;
 }
 
-button {
+button,
+button:disabled {
     touch-action: manipulation;
 }
