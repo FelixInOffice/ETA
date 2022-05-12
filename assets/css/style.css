@@ -107,6 +107,7 @@
     text-align: center;
     width: 80%;
     padding: 10px;
+    gap: 5px;
 }
 
 [data-key] {
@@ -148,7 +149,8 @@
     align-items: center;
 }
 
-button,
-button:disabled {
+.searchKeypadNumber div {
     touch-action: manipulation;
+    border: 1px solid #000000;
+    cursor: pointer;
 }
