@@ -154,3 +154,13 @@
     border: 1px solid #000000;
     cursor: pointer;
 }
+
+.searchKeypadNumber .disableButton {
+    background-color: gray;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.searchKeypadNumber .ableButton {
+    background-color: unset;
+}

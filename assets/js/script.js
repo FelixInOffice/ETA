@@ -220,9 +220,12 @@ function getAllBusRoute() {
 
 let typeRoute = document.getElementById("typedRoute");
 
-document.querySelector('[data-key="0"]').disabled = true;
-document.querySelector('[data-key="C"]').disabled = true;
-document.querySelector('[data-key="B"]').disabled = true;
+document.querySelector('[data-key="0"]').setAttribute("onclick", false);
+document.querySelector('[data-key="0"]').setAttribute("class", "disableButton");
+document.querySelector('[data-key="C"]').setAttribute("onclick", false);
+document.querySelector('[data-key="C"]').setAttribute("class", "disableButton");
+document.querySelector('[data-key="B"]').setAttribute("onclick", false);
+document.querySelector('[data-key="B"]').setAttribute("class", "disableButton");
 
 function typedRoute(number) {
     if (number == "B") {
@@ -234,10 +237,19 @@ function typedRoute(number) {
     }
 
     if (typeRoute.innerHTML != "") {
-        document.querySelector('[data-key="B"]').disabled = false;
-        document.querySelector('[data-key="C"]').disabled = false;
+        document.querySelector('[data-key="B"]').setAttribute("onclick", "typedRoute('B')");
+        document.querySelector('[data-key="B"]').setAttribute("class", "ableButton");
+        document.querySelector('[data-key="C"]').setAttribute("onclick", "typedRoute('C')");
+        document.querySelector('[data-key="C"]').setAttribute("class", "ableButton");
+        document.querySelector('[data-key="0"]').setAttribute("onclick", "typedRoute('0')");
+        document.querySelector('[data-key="0"]').setAttribute("class", "ableButton");
     } else {
-        document.querySelector('[data-key="B"]').disabled = true;
-        document.querySelector('[data-key="C"]').disabled = true;
+        document.querySelector('[data-key="B"]').setAttribute("onclick", false);
+        document.querySelector('[data-key="B"]').setAttribute("class", "disableButton");
+        document.querySelector('[data-key="C"]').setAttribute("onclick", false);
+        document.querySelector('[data-key="C"]').setAttribute("class", "disableButton");
+        document.querySelector('[data-key="0"]').setAttribute("onclick", false);
+        document.querySelector('[data-key="0"]').setAttribute("class", "disableButton");
+
     }
 }
