@@ -32,7 +32,7 @@
 }
 
 .night [data-key] {
-    background-color: unset;
+    background-color: #333;
 }
 
 .ETA_container {
@@ -42,7 +42,7 @@
 
 #ETA_dataBox {
     margin-bottom: 70px;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     padding: 20px 0px;
 }
 
@@ -56,6 +56,7 @@
 #ETA_settingBox {
     margin-bottom: 70px;
     padding: 20px 20px;
+    display: none;
 }
 
 .ETA_settingBoxStyle {
