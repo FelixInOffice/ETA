@@ -192,18 +192,28 @@ function deg2rad(deg) {
 ///////////////////////////////////////////////////////////////////////
 let homeButton = document.getElementById("bottomNav_HomePage");
 let searchButton = document.getElementById("bottomNav_SearchRoute");
+let settingButton = document.getElementById("bottomNav_Setting")
 
 let ETA_dataBox = document.getElementById("ETA_dataBox");
 let ETA_searchBox = document.getElementById("ETA_searchBox");
+let ETA_settingBox = document.getElementById("ETA_settingBox");
 
 searchButton.addEventListener("click", () => {
     ETA_dataBox.style.display = "none";
     ETA_searchBox.style.display = "unset";
+    ETA_settingBox.style.display = "none";
 })
 
 homeButton.addEventListener("click", () => {
     ETA_searchBox.style.display = "none";
     ETA_dataBox.style.display = "unset";
+    ETA_settingBox.style.display = "none";
+})
+
+settingButton.addEventListener("click", () => {
+    ETA_searchBox.style.display = "none";
+    ETA_dataBox.style.display = "none";
+    ETA_settingBox.style.display = "unset";
 })
 ///////////////////////////////////////////////////////////////////////
 
@@ -251,5 +261,31 @@ function typedRoute(number) {
         document.querySelector('[data-key="0"]').setAttribute("onclick", false);
         document.querySelector('[data-key="0"]').setAttribute("class", "disableButton");
 
+    }
+}
+
+document.getElementById("darkMode").addEventListener("change", function (event) {
+    console.log(event);
+});
+
+let switcher = document.getElementById("darkMode");
+
+if (localStorage.getItem("theme") !== null) {
+    document.body.setAttribute("class", localStorage.getItem("theme"));
+}
+
+if (localStorage.getItem("theme") == "night") {
+    $("#darkMode").prop("checked", true);
+} else if (localStorage.getItem("theme") == "day") {
+    $("#darkMode").prop("checked", false);
+}
+
+function darkModeSwitcher() {
+    if (switcher.checked) {
+        document.body.setAttribute("class", "night");
+        localStorage.setItem("theme", "night");
+    } else {
+        document.body.setAttribute("class", "day");
+        localStorage.setItem("theme", "day");
     }
 }
