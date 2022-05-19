@@ -1,5 +1,7 @@
-var myLocationDiv = document.getElementById("myLocation")
+var myLocationDiv = document.getElementById("myLocation");
 var y = document.getElementById("ETA_dataBox");
+
+y.innerHTML = "No"
 
 let options = {
     enableHighAccuracy: true
@@ -11,7 +13,8 @@ function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition, showError, options);
     } else {
-        myLocationDiv.innerHTML = "Geolocation is not supported by this browser.";
+        y.innerHTML = "Geolocation is not supported by this browser.";
+        localStorage.setItem("gps", "not-allowed");
     }
 }
 
@@ -158,16 +161,20 @@ function etaByStop(stopItem) {
 function showError(error) {
     switch (error.code) {
         case error.PERMISSION_DENIED:
-            myLocationDiv.innerHTML = "User denied the request for Geolocation."
+            y.innerHTML = "User denied the request for Geolocation.";
+            localStorage.setItem("gps", "not-allowed");
             break;
         case error.POSITION_UNAVAILABLE:
-            myLocationDiv.innerHTML = "Location information is unavailable."
+            y.innerHTML = "Location information is unavailable.";
+            localStorage.setItem("gps", "not-allowed");
             break;
         case error.TIMEOUT:
-            myLocationDiv.innerHTML = "The request to get user location timed out."
+            y.innerHTML = "The request to get user location timed out.";
+            localStorage.setItem("gps", "not-allowed");
             break;
         case error.UNKNOWN_ERROR:
-            myLocationDiv.innerHTML = "An unknown error occurred."
+            y.innerHTML = "An unknown error occurred.";
+            localStorage.setItem("gps", "not-allowed");
             break;
     }
 }
@@ -264,12 +271,7 @@ function typedRoute(number) {
     }
 }
 
-document.getElementById("darkMode").addEventListener("change", function (event) {
-    console.log(event);
-});
-
-let switcher = document.getElementById("darkMode");
-
+// Dark mode
 if (localStorage.getItem("theme") !== null) {
     document.body.setAttribute("class", localStorage.getItem("theme"));
 }
@@ -281,11 +283,34 @@ if (localStorage.getItem("theme") == "night") {
 }
 
 function darkModeSwitcher() {
+    let switcher = document.getElementById("darkMode");
     if (switcher.checked) {
         document.body.setAttribute("class", "night");
         localStorage.setItem("theme", "night");
     } else {
         document.body.setAttribute("class", "day");
         localStorage.setItem("theme", "day");
+    }
+}
+
+// GPS
+if (localStorage.getItem("gps") == "allowed") {
+    $("#GPSMode").prop("checked", true);
+    document.body.setAttribute("onload", 'getLocation()');
+} else if (localStorage.getItem("gps") == "not-allowed") {
+    $("#GPSMode").prop("checked", false);
+}
+
+function GPSSwitcher() {
+    let switcher = document.getElementById("GPSMode");
+    if (switcher.checked) {
+        getLocation();
+        localStorage.setItem("gps", "allowed");
+    } else {
+        let supports = {
+            geolocation: !!navigator.geolocation // will be `true` if geolocation is defined
+        };
+        supports.geolocation = false;
+        localStorage.setItem("gps", "not-allowed");
     }
 }

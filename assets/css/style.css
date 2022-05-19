@@ -62,6 +62,14 @@
 .ETA_settingBoxStyle {
     display: flex;
     align-items: center;
+    row-gap: 50px;
+    flex-direction: column;
+}
+
+.ETA_settingBoxStyle .setting {
+    width: 100%;
+    display: flex;
+    align-items: center;
     justify-content: space-between;
 }
 

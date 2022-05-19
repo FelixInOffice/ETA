@@ -13,7 +13,7 @@
     <title>到站時間</title>
 </head>
 
-<body onload="getLocation()" class="day">
+<body onload="" class="day">
     <!-- <button onclick="getLocation()">Try It</button> -->
     <!-- <p id="myLocation"></p> -->
     <div class="ETA_container">
@@ -63,11 +63,20 @@
         </div>
         <div id="ETA_settingBox">
             <div class="ETA_settingBoxStyle">
-                <div>深色模式</div>
-                <label class="switch">
-                    <input type="checkbox" id="darkMode" onchange="darkModeSwitcher()">
-                    <span class="slider round"></span>
-                </label>
+                <div class="setting">
+                    <div>深色模式</div>
+                    <label class="switch">
+                        <input type="checkbox" id="darkMode" onchange="darkModeSwitcher()">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="setting">
+                    <div>GPS</div>
+                    <label class="switch">
+                        <input type="checkbox" id="GPSMode" onchange="GPSSwitcher()">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
             </div>
         </div>
 
